@@ -26,6 +26,8 @@ class MovieService
      *      'Authorization' => 'Bearer ' . $this->apiKey,
      *      'accept' => 'application/json',
      *  ])->get('https://api.themoviedb.org/3/trending/movies/day'); *
+     * 
+     * @return Array $data['results'] $data['pages'] $data[....]
      */
     public function getTrendingMovies($page = 1)
     {
@@ -60,5 +62,27 @@ class MovieService
         $body = $response->getBody();
         $data = json_decode((string) $body, true);
         return $data;
+    }
+
+    /**
+     * @Desc added this function in case we want to handle pagination also to retrive all the movies 
+     * This method should be called by command
+     * @return Array movies
+     */
+    public function getAllTrendingMovies()
+    {
+
+        $client = new Client(); //new \GuzzleHttp\Client();
+        $response = $client->request('GET', 'https://api.themoviedb.org/3/trending/movie/day', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->apiKey,
+                'accept' => 'application/json',
+            ]
+        ]);
+
+        $body = $response->getBody();
+        $data = json_decode((string) $body, true);
+        
+        return  $data['results'];    
     }
 }

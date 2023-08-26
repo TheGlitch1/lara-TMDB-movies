@@ -32,11 +32,12 @@ class MovieController extends Controller
     /**
      * @Desc testing get movies. issue with gazzel or api.
      */
-    // public function showMovies(){
-    //     $response = Http::withToken(config('services.tmdb.key'))
-    //     ->get('https://api.themoviedb.org/3/trending/movies/day');
+    public function showMovies(){
+        $response = Http::withToken(config('services.tmdb.key'))
+        ->get('https://api.themoviedb.org/3/trending/movies/day');
         
-    //     // dd($this->apiKey);
-    //     dd($response->json());
-    // }
+        $movies = $this->movieService->getAllTrendingMovies();
+        return response()->json($movies);
+        dd($response->json());
+    }
 }

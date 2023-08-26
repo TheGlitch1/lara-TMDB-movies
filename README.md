@@ -73,16 +73,20 @@ Your application should now be running at [http://127.0.0.1:8000](http://127.0.0
 
 Visit `http://127.0.0.1:8000/movies/trending`
 
+#### With Pagination
+
+Visit `http://127.0.0.1:8000/movies/trending?page=1`
+
 ### View Movie Details:
 
 Click on a specific movie from the trending list or visit `http://127.0.0.1:8000/movies/{movieId}`
 
-### Store Movies to Database:
+### command Kernel:
 
-Run the artisan command:
+Run the artisan command to get and save the trending movies from the API to database.
 
-```bash
-php artisan store:movies
+```Bath
+php artisan fetch:movies
 ```
 
 ## Testing
