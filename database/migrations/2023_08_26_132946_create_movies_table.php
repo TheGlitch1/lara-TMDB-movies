@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('overview');
             $table->string('poster_path');
+            $table->float('vote_average');
             $table->date('release_date');
             $table->timestamps();
         });
