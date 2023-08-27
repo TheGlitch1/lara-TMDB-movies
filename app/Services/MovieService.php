@@ -29,7 +29,7 @@ class MovieService
      * 
      * @return Array $data['results'] $data['pages'] $data[....]
      */
-    public function getTrendingMovies($page = 1,$period = 'day')
+    public function getTrendingMovies($page = 1,$period="day")
     {
 
         $client = new Client(); //new \GuzzleHttp\Client();
@@ -44,7 +44,7 @@ class MovieService
         ]);
 
         $body = $response->getBody();
-        $data = json_decode((string) $body, true);
+        $data = json_decode((string) $body);
         return $data;
         // return $movies = $data['results'];     
     }
@@ -60,7 +60,7 @@ class MovieService
           ]);
 
         $body = $response->getBody();
-        $data = json_decode((string) $body, true);
+        $data = json_decode((string) $body);
         return $data;
     }
 

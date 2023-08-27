@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Movie;
 use Illuminate\Console\Command;
+use App\Services\MovieService;
 
 class FetchMovies extends Command
 {
@@ -30,20 +31,20 @@ class FetchMovies extends Command
     {   
         $this->info('Fetching movies from the API...');
     
-        $movieService = app(\App\Services\MovieService::class);
+        $movieService = app(MovieService::class);
         $movies = $movieService->getTrendingMovies();
-        foreach ($movies['results'] as $movieData) {
+        foreach ($movies->results as $movieData) {
             // \Log::info('Movie Data:', $movieData);
-            if (isset($movieData['id'])) {
-                dump($movieData['title']);
+            if (isset($movieData->id)) {
+                dump($movieData->title);
                 Movie::updateOrCreate(
-                    ['id' => $movieData['id']],
+                    ['id' => $movieData->id],
                     [
-                        'title' => $movieData['title'],
-                        'overview' => $movieData['overview'],
-                        'poster_path' => $movieData['poster_path'],
-                        'release_date' => $movieData['release_date'] ?? null,
-                        'vote_average'=>$movieData['vote_average'] ?? null,
+                        'title' => $movieData->title,
+                        'overview' => $movieData->overview,
+                        'poster_path' => $movieData->poster_path,
+                        'release_date' => $movieData->release_date ?? null,
+                        'vote_average'=>$movieData->vote_average ?? null,
                     ]
                 );
             }

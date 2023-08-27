@@ -19,15 +19,15 @@ Route::get('/', function () {
 });
 
 // Route::get('/movies', [MovieController::class, 'showMovies']); // Route made to test directly in controller before woring with service layer.
-Route::get('/movies/trending', [MovieController::class, 'showTrending']);
-Route::get('/movies/{movieId}', [MovieController::class, 'showDetails']);
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    ])->group(function () {
+        Route::get('/movies/trending', [MovieController::class, 'showTrending'])->name('movies.trending');
+        Route::get('/movies/{movieId}', [MovieController::class, 'showDetails'])->name('movie.details');
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
 });

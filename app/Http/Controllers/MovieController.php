@@ -17,17 +17,18 @@ class MovieController extends Controller
     
     public function showTrending(Request $request) {
         $page = $request->get('page', 1);
-        $period = $request->get('period');
-        $movies = $this->movieService->getTrendingMovies($page,$period);
-        return response()->json($movies);
-        // return view('movies.trending', compact('movies'));
+        $period = $request->get('period',"day");
+        $data = $this->movieService->getTrendingMovies($page,$period);
+        $movies = $data->results;
+        // dd($movies);
+        return view('movies.trending', compact('movies'));
     }
     
     public function showDetails($movieId) {
-        $movieDetails = $this->movieService->getMovieDetails($movieId);
-        return response()->json($movieDetails);
-
-        // return view('movies.details', compact('movieDetails'));
+        $movie = $this->movieService->getMovieDetails($movieId);
+        // dd($movieDetails);
+        // return response()->json($movieDetails);
+        return view('movies.details', compact('movie'));
     }
     
     /**
