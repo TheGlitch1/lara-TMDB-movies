@@ -1,8 +1,20 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Trending') }}
-        </h2>
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ $viewType === 'trending' ? __('Trending') : __('All Movies') }}
+            </h2>
+            @if($viewType === 'trending')
+            <div>
+                <form action="{{ route('movies.trending') }}" method="GET">
+                    <select name="period" onchange="this.form.submit()" class="rounded-md border-gray-300 py-2 bg-white text-md w-30">
+                        <option value="day" {{ request('period', 'day') === 'day' ? 'selected' : '' }}>Day</option>
+                        <option value="week" {{ request('period') === 'week' ? 'selected' : '' }}>Week</option>
+                    </select>
+                </form>
+            </div>
+            @endif
+        </div>
     </x-slot>
 
     <div class="py-12">

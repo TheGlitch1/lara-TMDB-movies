@@ -25,6 +25,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
     ])->group(function () {
+        Route::get('/movies', [MovieController::class, 'allMovies'])->name('movies.all');
         Route::get('/movies/trending', [MovieController::class, 'showTrending'])->name('movies.trending');
         Route::get('/movies/{movieId}', [MovieController::class, 'showDetails'])->name('movie.details');
         Route::get('/dashboard', function () {

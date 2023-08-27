@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Movie;
 use Illuminate\Http\Request;
 use App\Services\MovieService;
 use Illuminate\Support\Facades\Http;
@@ -21,9 +22,22 @@ class MovieController extends Controller
         $data = $this->movieService->getTrendingMovies($page,$period);
         $movies = $data->results;
         // dd($movies);
-        return view('movies.trending', compact('movies'));
+        $viewType = 'trending';
+        return view('movies.index', compact('movies', 'viewType'));
     }
     
+    /**
+     * @Desc get movies from dataBase
+     */
+    public function allMovies() 
+    {
+        // Fetch movies from the database
+        $movies = Movie::paginate(20);
+        $viewType = 'all';
+        return view('movies.index', compact('movies', 'viewType'));
+    }
+
+
     public function showDetails($movieId) {
         $movie = $this->movieService->getMovieDetails($movieId);
         // dd($movieDetails);
@@ -31,6 +45,8 @@ class MovieController extends Controller
         return view('movies.details', compact('movie'));
     }
     
+
+
     /**
      * @Desc testing get movies. issue with gazzel or api.
      */

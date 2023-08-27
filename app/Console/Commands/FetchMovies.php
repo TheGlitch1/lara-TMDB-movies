@@ -21,7 +21,7 @@ class FetchMovies extends Command
      * @var string
      */
     protected $description = 'Fetch movies from the API and store them in the database';
-
+    
     /**
      * Execute the console command.
      *
