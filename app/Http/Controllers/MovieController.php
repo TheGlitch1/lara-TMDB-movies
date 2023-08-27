@@ -17,7 +17,8 @@ class MovieController extends Controller
     
     public function showTrending(Request $request) {
         $page = $request->get('page', 1);
-        $movies = $this->movieService->getTrendingMovies($page);
+        $period = $request->get('period');
+        $movies = $this->movieService->getTrendingMovies($page,$period);
         return response()->json($movies);
         // return view('movies.trending', compact('movies'));
     }

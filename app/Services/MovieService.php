@@ -29,11 +29,11 @@ class MovieService
      * 
      * @return Array $data['results'] $data['pages'] $data[....]
      */
-    public function getTrendingMovies($page = 1)
+    public function getTrendingMovies($page = 1,$period = 'day')
     {
 
         $client = new Client(); //new \GuzzleHttp\Client();
-        $response = $client->request('GET', 'https://api.themoviedb.org/3/trending/movie/day', [
+        $response = $client->request('GET', 'https://api.themoviedb.org/3/trending/movie/'. $period, [
             'query' => [
                 'page' => $page
             ],
