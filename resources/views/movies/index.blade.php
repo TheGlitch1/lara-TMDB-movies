@@ -18,17 +18,20 @@
     </x-slot>
 
     <div class="py-12">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-            <div class="container py-5 px-5">
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    @foreach($movies as $movie)
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="mt-8 px-4">
+                        {{ $movies->links() }}
+                </div>
+                <div class="container py-5 px-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        @foreach($movies as $movie)
                         <div class="card rounded overflow-hidden shadow-lg max-w-xs">
                             <div class="relative overflow-hidden"> <!-- This maintains an aspect ratio -->
                                 <img class="w-full h-full object-cover" src="https://image.tmdb.org/t/p/w500/{{ $movie->poster_path }}" alt="{{ $movie->title }}">
                             </div>
                             <div class="px-4 py-2">
-                            <div class="font-bold text-xl mb-2 truncate" title="{{ $movie->title }}">{{ $movie->title }}</div>
+                                <div class="font-bold text-xl mb-2 truncate" title="{{ $movie->title }}">{{ $movie->title }}</div>
                                 <p class="text-gray-600 text-sm">
                                     {{ Str::limit($movie->overview, 100) }}
                                 </p>
@@ -42,11 +45,14 @@
                                 </a>
                             </div>
                         </div>
-                    @endforeach
+                        @endforeach
+                    </div>
+                </div>
+                <div class="mt-8 px-4 mb-2">
+                        {{ $movies->links() }}
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 </x-app-layout>
