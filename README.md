@@ -79,7 +79,7 @@ Using Jetstream, you will be prompte to login first, Please create your account 
 
 Visit `http://127.0.0.1:8000/` : Introduction with all features availble in the web app.
 
-![plot](./README/Dashboard.png)
+![plot](./README/Dashboard.PNG)
 
 ### View Trending Movies:
 
@@ -102,7 +102,7 @@ Aafter fetching movies
 ### View Movie Details:
 
 Click on a specific movie from the trending list or visit `http://127.0.0.1:8000/movies/{movieId}`
-![plot](./README/movie_details.png)
+![plot](./README/movie_details.PNG)
 
 ### command Kernel:
 
@@ -111,7 +111,7 @@ Run the artisan command fetch:movies to get and save the trending movies from th
 ```Bath
 php artisan fetch:movies
 ```
-![plot](./README/command_fetch_movies.png)
+![plot](./README/command_fetch_movies.PNG)
 
 Run the artisan command delete:movies to delete all movies in database.
 
