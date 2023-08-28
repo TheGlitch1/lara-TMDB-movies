@@ -49,13 +49,7 @@ DB_PASSWORD=your_password
 TMDB_API_KEY=your_api_key_here
 ```
 
-### 4. Generate application key:
-
-```bash
-php artisan key:generate
-```
-
-### 5. Run migrations:
+### 4. Run migrations:
 
 This will create the necessary tables in your database.
 
@@ -63,7 +57,7 @@ This will create the necessary tables in your database.
 php artisan migrate
 ```
 
-### 6. Serve the application:
+### 5. Serve the application:
 
 ```bash
 php artisan serve
@@ -77,6 +71,16 @@ Your application should now be running at [http://127.0.0.1:8000](http://127.0.0
 
 ## Usage
 
+### Create new user account
+
+Using Jetstream, you will be prompte to login first, Please create your account to have access to dashboard or any other page.
+
+### View Dashboard:
+
+Visit `http://127.0.0.1:8000/` : Introduction with all features availble in the web app.
+
+![plot](./README/Dashboard.png)
+
 ### View Trending Movies:
 
 Visit `http://127.0.0.1:8000/movies/trending`
@@ -87,12 +91,18 @@ Visit `http://127.0.0.1:8000/movies/trending?page=1&period=week`
 
 #### View DB stored movies
 
-Should be accessible only if the movies in db are availble.
+Should be accessible only if the movies in db are availble. protected with middleware.
 Visit `http://127.0.0.1:8000/movies`
+
+Before fetching movies
+![plot](./README/nav_before_fetch_cmd.PNG)
+Aafter fetching movies
+![plot](./README/nav_after_fetch_cmd.PNG)
 
 ### View Movie Details:
 
 Click on a specific movie from the trending list or visit `http://127.0.0.1:8000/movies/{movieId}`
+![plot](./README/movie_details.png)
 
 ### command Kernel:
 
@@ -101,22 +111,13 @@ Run the artisan command fetch:movies to get and save the trending movies from th
 ```Bath
 php artisan fetch:movies
 ```
+![plot](./README/command_fetch_movies.png)
 
 Run the artisan command delete:movies to delete all movies in database.
 
 ```Bath
 php artisan delete:movies
 ```
-
-## Testing
-
-Make sure you have the required configurations in `.env.testing` or any specific environment file for testing.
-
-```bash
-php artisan test
-```
-
-(Note: Be sure to add tests to your project if they don't exist.)
 
 ## Contributing
 
