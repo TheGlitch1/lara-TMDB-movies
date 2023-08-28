@@ -15,7 +15,7 @@ use App\Http\Controllers\MovieController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('dashboard');
 });
 
 // Route::get('/movies', [MovieController::class, 'showMovies']); // Route made to test directly in controller before woring with service layer.
@@ -25,7 +25,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
     ])->group(function () {
-        Route::get('/movies', [MovieController::class, 'allMovies'])->name('movies.all');
+        Route::get('/movies', [MovieController::class, 'allMovies'])->middleware('check.movies.exist')->name('movies.all');
         Route::get('/movies/trending', [MovieController::class, 'showTrending'])->name('movies.trending');
         Route::get('/movies/{movieId}', [MovieController::class, 'showDetails'])->name('movie.details');
         Route::get('/dashboard', function () {

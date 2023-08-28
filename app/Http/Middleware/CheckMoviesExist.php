@@ -18,7 +18,9 @@ class CheckMoviesExist
     public function handle(Request $request, Closure $next)
     {   
         $hasMovies = Movie::exists();
-
+        if (!$hasMovies && $request->routeIs('movies.all')) {
+            return redirect()->route('movies.trending');
+        }
         view()->share('hasMovies', $hasMovies);
         return $next($request);
     }

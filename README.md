@@ -24,6 +24,10 @@ cd movie_project
 composer install
 ```
 
+```bash
+npm install
+```
+
 ### 3. Setup environment variables:
 
 Copy `.env.example` to `.env`:
@@ -65,6 +69,10 @@ php artisan migrate
 php artisan serve
 ```
 
+```bash
+npm run dev
+```
+
 Your application should now be running at [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
 ## Usage
@@ -73,9 +81,14 @@ Your application should now be running at [http://127.0.0.1:8000](http://127.0.0
 
 Visit `http://127.0.0.1:8000/movies/trending`
 
-#### With Pagination
+#### With Pagination & Period
 
-Visit `http://127.0.0.1:8000/movies/trending?page=1`
+Visit `http://127.0.0.1:8000/movies/trending?page=1&period=week`
+
+#### View DB stored movies
+
+Should be accessible only if the movies in db are availble.
+Visit `http://127.0.0.1:8000/movies`
 
 ### View Movie Details:
 
@@ -83,10 +96,16 @@ Click on a specific movie from the trending list or visit `http://127.0.0.1:8000
 
 ### command Kernel:
 
-Run the artisan command to get and save the trending movies from the API to database.
+Run the artisan command fetch:movies to get and save the trending movies from the API to database.
 
 ```Bath
 php artisan fetch:movies
+```
+
+Run the artisan command delete:movies to delete all movies in database.
+
+```Bath
+php artisan delete:movies
 ```
 
 ## Testing
