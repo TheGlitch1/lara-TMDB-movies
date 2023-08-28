@@ -45,11 +45,11 @@ class FetchMovies extends Command
         if(empty($allMovies)) $this->info('Fetching movies NO movies returned...');
         else $this->info('Fetching movies MOVIES FOUND returned...');
         foreach ($allMovies as $movieData) {
-            // Save each movie to the database
             if (isset($movieData->id)) {
                 Movie::updateOrCreate(
                     ['id' => $movieData->id],
                     [
+                        'id' => $movieData->id,
                         'title' => $movieData->title,
                         'overview' => $movieData->overview,
                         'poster_path' => $movieData->poster_path,
@@ -63,30 +63,4 @@ class FetchMovies extends Command
         $this->info("Movies fetched and stored successfully!");
     }
 
-
-    /* public function handle()
-    {   
-        $this->info('Fetching movies from the API...');
-    
-        $movieService = app(MovieService::class);
-        $movies = $movieService->getTrendingMovies();
-        foreach ($movies->results as $movieData) {
-            // \Log::info('Movie Data:', $movieData);
-            if (isset($movieData->id)) {
-                dump($movieData->title);
-                Movie::updateOrCreate(
-                    ['id' => $movieData->id],
-                    [
-                        'title' => $movieData->title,
-                        'overview' => $movieData->overview,
-                        'poster_path' => $movieData->poster_path,
-                        'release_date' => $movieData->release_date ?? null,
-                        'vote_average'=>$movieData->vote_average ?? null,
-                    ]
-                );
-            }
-        }
-        $this->info('Movies fetched and stored successfully!');
-        return Command::SUCCESS;
-    } */
 }

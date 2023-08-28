@@ -40,13 +40,15 @@ class MovieService
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->apiKey,
                 'accept' => 'application/json',
-            ]
+            ],
+            'http_errors' => false
         ]);
-
+        if ($response->getStatusCode() != 200) {
+            return null; 
+        }
         $body = $response->getBody();
         $data = json_decode((string) $body);
         return $data;
-        // return $movies = $data['results'];     
     }
 
     public function getMovieDetails($movieId)
@@ -96,7 +98,6 @@ class MovieService
                 continue;
             }
 
-            // Accumulate all movies
             $allMovies = array_merge($allMovies, $movies->results);
 
             $page++;

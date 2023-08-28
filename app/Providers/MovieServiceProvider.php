@@ -15,7 +15,7 @@ class MovieServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(MovieService::class, function ($app) {
-            return new MovieService();  // Here, you can pass any dependencies if required.
+            return new MovieService();
         });
     }
 

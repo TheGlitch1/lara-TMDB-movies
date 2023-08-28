@@ -17,17 +17,19 @@ class MovieController extends Controller
         $this->movieService = $movieService;
     }
 
-
     public function showTrending(Request $request)
     {
         $page = $request->get('page', 1);
         $period = $request->get('period', "day");
         $data = $this->movieService->getTrendingMovies($page, $period);
+        if (!$data) {
+            return redirect()->route('movies.trending')->withErrors('The requested page is out of range or period, period diffrent than day/week or an error occurred.');
+        }
         $movies = $data->results;
         $viewType = 'trending';
-        // Manually creating paginator
+        
         $total = $data->total_results-100;
-        $perPage = 20; // Assuming 20 items per page from the API
+        $perPage = 20; 
         $movies = new LengthAwarePaginator($movies, $total, $perPage, $page, ['path' => route('movies.trending')]);
         return view('movies.index', compact('movies', 'viewType'));
     }
@@ -47,8 +49,6 @@ class MovieController extends Controller
     public function showDetails($movieId)
     {
         $movie = $this->movieService->getMovieDetails($movieId);
-        // dd($movieDetails);
-        // return response()->json($movieDetails);
         return view('movies.details', compact('movie'));
     }
 

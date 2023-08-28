@@ -19,9 +19,19 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if ($errors->any())
+            <div class="bg-red-500 text-white font-semibold rounded-lg border-l-4 border-red-700 p-4 mt-6" role="alert">
+                <p class="font-bold">Error:</p>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="mt-8 px-4">
-                        {{ $movies->links() }}
+                    {{ $movies->links() }}
                 </div>
                 <div class="container py-5 px-5">
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -49,7 +59,7 @@
                     </div>
                 </div>
                 <div class="mt-8 px-4 mb-2">
-                        {{ $movies->links() }}
+                    {{ $movies->links() }}
                 </div>
             </div>
         </div>
