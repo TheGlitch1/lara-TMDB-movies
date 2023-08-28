@@ -50,7 +50,7 @@
                                 <span class="inline-block bg-gray-200 rounded-full px-2 py-1 text-xs font-medium text-gray-700 mr-2 mb-2">
                                     {{ $movie->vote_average ?? 'No rating' }} / 10
                                 </span>
-                                <a href="{{ route('movie.details', $movie->id) }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-1 px-2 rounded">
+                                <a href="{{ route('movie.details', $movie->oid ?? $movie->id) }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-1 px-2 rounded">
                                     Details
                                 </a>
                             </div>

@@ -47,9 +47,9 @@ class FetchMovies extends Command
         foreach ($allMovies as $movieData) {
             if (isset($movieData->id)) {
                 Movie::updateOrCreate(
-                    ['id' => $movieData->id],
+                    ['oid' => $movieData->id],
                     [
-                        'id' => $movieData->id,
+                        'oid' => $movieData->id,
                         'title' => $movieData->title,
                         'overview' => $movieData->overview,
                         'poster_path' => $movieData->poster_path,
