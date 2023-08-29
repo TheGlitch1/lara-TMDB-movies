@@ -31,6 +31,7 @@ class MovieController extends Controller
         $total = $data->total_results-100;
         $perPage = 20; 
         $movies = new LengthAwarePaginator($movies, $total, $perPage, $page, ['path' => route('movies.trending')]);
+        $movies->appends(['period' => $period]);
         return view('movies.index', compact('movies', 'viewType'));
     }
 
