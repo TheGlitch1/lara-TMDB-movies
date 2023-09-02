@@ -19,6 +19,9 @@ Route::get('/', function () {
 });
 
 // Route::get('/movies', [MovieController::class, 'showMovies']); // Route made to test directly in controller before woring with service layer.
+Route::get('/test-exception', function () {
+    throw new \App\Exceptions\MovieApiException('This is a test.', 400);
+});
 
 Route::middleware([
     'auth:sanctum',

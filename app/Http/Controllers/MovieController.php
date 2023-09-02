@@ -6,6 +6,7 @@ use App\Models\Movie;
 use Illuminate\Http\Request;
 use App\Services\MovieService;
 use Illuminate\Support\Facades\Http;
+use App\Exceptions\MovieApiException;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class MovieController extends Controller
@@ -19,20 +20,20 @@ class MovieController extends Controller
 
     public function showTrending(Request $request)
     {
-        $page = $request->get('page', 1);
-        $period = $request->get('period', "day");
-        $data = $this->movieService->getTrendingMovies($page, $period);
-        if (!$data) {
-            return redirect()->route('movies.trending')->withErrors('The requested page is out of range or period, period diffrent than day/week or an error occurred.');
-        }
-        $movies = $data->results;
-        $viewType = 'trending';
+    
+            $page = $request->get('page', 1);
+            $period = $request->get('period', "day");
+            $data = $this->movieService->getTrendingMovies($page, $period);
+           
+            $movies = $data->results;
+            $viewType = 'trending';
+            
+            $total = $data->total_results;
+            $perPage = 20; 
+            $movies = new LengthAwarePaginator($movies, $total, $perPage, $page, ['path' => route('movies.trending')]);
+            $movies->appends(['period' => $period]);
+            return view('movies.index', compact('movies', 'viewType'));
         
-        $total = $data->total_results-100;
-        $perPage = 20; 
-        $movies = new LengthAwarePaginator($movies, $total, $perPage, $page, ['path' => route('movies.trending')]);
-        $movies->appends(['period' => $period]);
-        return view('movies.index', compact('movies', 'viewType'));
     }
 
     /**

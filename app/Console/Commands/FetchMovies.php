@@ -3,8 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Models\Movie;
-use Illuminate\Console\Command;
 use App\Services\MovieService;
+use Illuminate\Console\Command;
+use App\Exceptions\MovieApiException;
 
 class FetchMovies extends Command
 {
@@ -36,31 +37,36 @@ class FetchMovies extends Command
      */
     public function handle()
     {
+        try {
 
-        $this->call('delete:movies');
-
-        $this->info('Fetching movies from the API...');
-
-        $allMovies = $this->movieService->getAllTrendingMovies();
-        if(empty($allMovies)) $this->info('Fetching movies NO movies returned...');
-        else $this->info('Fetching movies MOVIES FOUND returned...');
-        foreach ($allMovies as $movieData) {
-            if (isset($movieData->id)) {
-                Movie::updateOrCreate(
-                    ['oid' => $movieData->id],
-                    [
-                        'oid' => $movieData->id,
-                        'title' => $movieData->title,
-                        'overview' => $movieData->overview,
-                        'poster_path' => $movieData->poster_path,
-                        'release_date' => $movieData->release_date ?? null,
-                        'vote_average' => $movieData->vote_average ?? null,
-                    ]
-                );
+            
+            
+            $allMovies = $this->movieService->getAllTrendingMovies();
+            
+            $this->call('delete:movies');
+            
+            $this->info('Fetching movies from the API...');
+            if (empty($allMovies)) $this->info('Fetching movies NO movies returned...');
+            else $this->info('Fetching movies MOVIES FOUND returned...');
+            foreach ($allMovies as $movieData) {
+                if (isset($movieData->id)) {
+                    Movie::updateOrCreate(
+                        ['oid' => $movieData->id],
+                        [
+                            'oid' => $movieData->id,
+                            'title' => $movieData->title,
+                            'overview' => $movieData->overview,
+                            'poster_path' => $movieData->poster_path,
+                            'release_date' => $movieData->release_date ?? null,
+                            'vote_average' => $movieData->vote_average ?? null,
+                        ]
+                    );
+                }
             }
+
+            $this->info("Movies fetched and stored successfully!");
+        } catch (MovieApiException $e) {
+            $this->error($e->getMessage());
         }
-
-        $this->info("Movies fetched and stored successfully!");
     }
-
 }
