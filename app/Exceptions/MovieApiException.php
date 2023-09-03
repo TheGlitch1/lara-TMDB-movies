@@ -39,7 +39,7 @@ class MovieApiException extends Exception
         if ($request->expectsJson()) {
             return response()->json(['error' => $message], 400);
         }
-        return redirect()->route($route)->withErrors($message);
+        return redirect()->route($route)->withErrors(['error_key' =>$message])->setStatusCode(303);
     }
 
     public function report()
