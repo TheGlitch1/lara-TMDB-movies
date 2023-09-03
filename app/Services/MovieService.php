@@ -33,7 +33,7 @@ class MovieService
      * @param string $period The period ("day" or "week").
      * @return object|null $data->results $data->pages $data->....
      */
-    public function getTrendingMovies($page = 1, $period = "day"): ?object
+    public function getTrendingMovies(int $page = 1, string $period = "day"): ?object
     {
         $client = new Client(); //new \GuzzleHttp\Client();
         try {
@@ -61,7 +61,7 @@ class MovieService
         
     }
 
-    public function getMovieDetails($movieId)
+    public function getMovieDetails($movieId): object|array
     {   
         try{
 
@@ -88,7 +88,7 @@ class MovieService
      * @Exceptions : here I tried another way to handle the exception and how i send message data. I hope you will notice guys.
      * @return Array movies
      */
-    public function getAllTrendingMovies()
+    public function getAllTrendingMovies(): object|Array
     {   
         try{
             

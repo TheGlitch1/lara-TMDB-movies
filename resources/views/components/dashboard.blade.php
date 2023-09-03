@@ -143,6 +143,66 @@
         </ul>
     </div>
 
+    <!-- Feature 99: Exception Management -->
+    <div>
+        <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-6 h-6 stroke-gray-400">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+            </svg>
+            <h2 class="text-xl font-semibold text-gray-900">
+                Exception Management
+            </h2>
+        </div>
+        <p class="mt-4 text-gray-500 text-sm leading-relaxed">
+            This design choice optimizes the error-handling mechanism for API calls, ensuring not only robustness but also improved maintainability. To ensure end-to-end consistency, this exception management system is also seamlessly integrated into the artisan commands that interact with the API.
+        </p>
+    </div>
+
+    <!-- Feature 99: Validation -->
+    <div>
+        <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-6 h-6 stroke-gray-400">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+            </svg>
+            <h2 class="text-xl font-semibold text-gray-900">
+                Validation Management
+            </h2>
+        </div>
+        <p class="mt-4 text-gray-500 text-sm leading-relaxed">
+            Rather than creating custom validation rules, which would be an overengineering move at this juncture, I have implemented in-controller validation logic. This is particularly utilized in the "allMovies" method to validate the scope parameter. 
+            This provides a clear distinction between the custom exception system employed for API services and the built-in Laravel validation methods.
+        </p>
+    </div>
+
+    <!-- Feature 99: Validation -->
+    <div>
+        <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-6 h-6 stroke-gray-400">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+            </svg>
+            <h2 class="text-xl font-semibold text-gray-900">
+                Query Scopes
+            </h2>
+        </div>
+        <p class="mt-4 text-gray-500 text-sm leading-relaxed">
+            I have utilized two distinct scopes for filtering movies based on their "vote_average" properties. This allows for more modular code and simplifies potential future enhancements.
+        </p>
+    </div>
+
+    <!-- Feature 99: Validation -->
+    <div>
+        <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-6 h-6 stroke-gray-400">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+            </svg>
+            <h2 class="text-xl font-semibold text-gray-900">
+                Feature Tests
+            </h2>
+        </div>
+        <p class="mt-4 text-gray-500 text-sm leading-relaxed">
+        I integrated a feature test for the service, taking into account authentication, web session with StartSession, exception handlers, validation errors, redirection, etc., in order to obtain correct assertions. In order to have correct assertions. 
+        </p>
+    </div>
 
     <!-- I don't remeber other features or things I worked on durring the 12 hours -->
 

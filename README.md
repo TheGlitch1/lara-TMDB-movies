@@ -119,6 +119,14 @@ Run the artisan command delete:movies to delete all movies in database.
 php artisan delete:movies
 ```
 
+### TEST
+
+Run the follwing command to test the custom feature test related to the api service.
+
+```
+./vendor/bin/phpunit --filter MovieTrendingTest
+```
+
 ## Contributing
 
 1. Fork the repository.

@@ -16,7 +16,10 @@ class MovieTrendingTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->withoutDeprecationHandling();
         $this->withMiddleware([StartSession::class]);  // Add StartSession middleware
+        $user = User::factory()->create();
+        $this->actingAs($user);
     }
     /**
      * A basic test example.
@@ -24,30 +27,21 @@ class MovieTrendingTest extends TestCase
      * @return void
      */
      /** @test */
-    public function it_shows_trending_movies_for_day_period()
+    public function it_shows_trending_movies_for_day_period(): void
     {   
-        $this->withoutDeprecationHandling();
-        $user = User::factory()->create();
-        $this->actingAs($user);
-
-        $response = $this->get(route('movies.trending'))->assertStatus(200);
+       $this->get(route('movies.trending'))->assertStatus(200);
     }
 
      /** @test */
-    public function it_shows_trending_movies_for_week_period()
+    public function it_shows_trending_movies_for_week_period(): void
     {
-        // $this->withoutDeprecationHandling();
-        $user = User::factory()->create();
-        $this->actingAs($user);
-        $response = $this->get('/movies/trending?period=week')->assertStatus(200);
+        $this->get('/movies/trending?period=week')->assertStatus(200);
     }
     
      /** @test */
-    public function it_validates_period_parameter()
+    public function it_validates_period_parameter(): void
     {
-        $this->withoutDeprecationHandling();
-        $user = User::factory()->create();
-        $this->actingAs($user);
+        
         $this->get('/movies/trending?period=invalid')
         ->assertRedirect(route('movies.trending'))
         ->assertStatus(303)
