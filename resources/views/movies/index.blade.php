@@ -14,6 +14,17 @@
                 </form>
             </div>
             @endif
+            @if($viewType === 'all')
+            <div>
+                <form action="{{ route('movies.all') }}" method="GET">
+                    <select name="filter" onchange="this.form.submit()" class="rounded-md border-gray-300 py-2 bg-white text-md w-30">
+                        <option value="all" {{ request('filter', 'all') === 'all' ? 'selected' : '' }}>All Movies</option>
+                        <option value="most_voted" {{ request('filter') === 'most_voted' ? 'selected' : '' }}>Most Voted (7+)</option>
+                        <option value="least_voted" {{ request('filter') === 'least_voted' ? 'selected' : '' }}>Least Voted (Under 5)</option>
+                    </select>
+                </form>
+            </div>
+            @endif
         </div>
     </x-slot>
 

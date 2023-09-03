@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\MovieService;
 use Illuminate\Support\Facades\Http;
 use App\Exceptions\MovieApiException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class MovieController extends Controller
@@ -20,7 +21,7 @@ class MovieController extends Controller
 
     public function showTrending(Request $request)
     {
-    
+            
             $page = $request->get('page', 1);
             $period = $request->get('period', "day");
             $data = $this->movieService->getTrendingMovies($page, $period);
@@ -39,12 +40,38 @@ class MovieController extends Controller
     /**
      * @Desc get movies from dataBase
      */
-    public function allMovies()
+    public function allMovies(Request $request)
     {
-        // Fetch movies from the database
-        $movies = Movie::paginate(20);
-        $viewType = 'all';
-        return view('movies.index', compact('movies', 'viewType'));
+        try {
+            $request->validate([
+                'page' => 'integer|min:1',
+                'filter' => 'in:most_voted,least_voted,under_5',
+            ]);
+            $movies = $this->filterMovies($request);
+            $viewType = 'all';
+            return view('movies.index', compact('movies', 'viewType'));
+        } catch (ValidationException $e) {
+            return redirect()->route('movies.all')->withErrors("Validation failed: " . $e->getMessage());
+        }
+    }
+
+    private function filterMovies(Request $request)
+    {
+        $filter = $request->input('filter', 'all');
+        $query = Movie::query();
+
+        switch ($filter) {
+            case 'most_voted':
+                $query->mostVoted();
+                break;
+            case 'least_voted':
+                $query->leastVoted();
+                break;
+            default:
+                break;
+        }
+
+        return $query->paginate(20)->appends(['filter' => $filter]);
     }
 
 
