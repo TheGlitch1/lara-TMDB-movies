@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Services\MovieService;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\AllMoviesRequest;
+use App\Http\Requests\ShowTrendingRequest;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -20,41 +22,42 @@ class MovieController extends Controller
         $this->movieService = $movieService;
     }
 
-    public function showTrending(Request $request): View
+    public function showTrending(ShowTrendingRequest $request): View
     {
             
             $page = $request->get('page', 1);
             $period = $request->get('period', "day");
             $data = $this->movieService->getTrendingMovies((int) $page,(string) $period);
-           
-            $movies = $data->results;
             $viewType = 'trending';
+
+            $movies = new LengthAwarePaginator(
+                $data->results,
+                $data->total_results,
+                count($data->results),
+                $request->page,
+                ['path' => route('movies.trending')]
+            );
             
-            $total = $data->total_results;
-            $perPage = 20; 
-            $movies = new LengthAwarePaginator($movies, $total, $perPage, $page, ['path' => route('movies.trending')]);
-            $movies->appends(['period' => $period]);
+            $movies->appends(['period' => $request->period]);
+    
             return view('movies.index', compact('movies', 'viewType'));
-        
+
     }
 
     /**
      * @Desc get movies from dataBase
      */
-    public function allMovies(Request $request): View|RedirectResponse
+    public function allMovies(AllMoviesRequest $request): View|RedirectResponse
     {
         try {
-            $request->validate([
-                'page' => 'integer|min:1',
-                'filter' => 'nullable|in:most_voted,least_voted,under_5,all',
-            ]);
-            $filter = $request->get('filter', 'all');
+            $filter = $request->get('filter',"all");
             $movies = $this->filterMovies($filter);
-            if ($request->input('page', 1)> $movies->lastPage()) {
+            if ($request->page > $movies->lastPage()) {
                 throw ValidationException::withMessages([
                     'page' => ["The requested page number is out of range."]
                 ]);
             }
+
             $viewType = 'all';
             return view('movies.index', compact('movies', 'viewType'));
         } catch (ValidationException $e) {
@@ -62,7 +65,7 @@ class MovieController extends Controller
         }
     }
 
-    private function filterMovies(string $filter)
+    private function filterMovies(string $filter): LengthAwarePaginator
     {
         $query = Movie::query();
 

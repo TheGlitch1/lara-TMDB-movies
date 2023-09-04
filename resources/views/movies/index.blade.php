@@ -32,7 +32,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if ($errors->any())
             <div class="bg-red-500 text-white font-semibold rounded-lg border-l-4 border-red-700 p-4 mt-6" role="alert">
-                <p class="font-bold">Error:</p>
+                <p class="font-bold">Oops:</p>
                 <ul>
                     @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
